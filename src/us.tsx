@@ -22,6 +22,7 @@ interface FeatureShape {
 
 // @ts-expect-error
 const { features: unitedStates } = topojson.feature(
+  // @ts-expect-errorƒ
   topology,
   topology.objects.states
 ) as {
@@ -56,7 +57,7 @@ const ignoredStates = ["VT", "NH", "MA", "RI", "CT", "NJ", "DE", "MD"];
 export default function GeoAlbersUsa({
   width,
   height,
-  fullSize = true,
+  fullSize = false,
 }: GeoAlbersUsaProps) {
   const [displayLabels, setDisplayLabels] = useState<boolean>(fullSize);
 
@@ -80,6 +81,7 @@ export default function GeoAlbersUsa({
             const coords: [number, number] | null = projection(
               geoCentroid(feature)
             );
+            // @ts-expect-error
             const abbr: string = stateAbbrs[feature.id];
 
             if (coordOffsets[abbr] && coords) {
@@ -102,7 +104,8 @@ export default function GeoAlbersUsa({
                 <path
                   key={`map-feature-${i}`}
                   d={path || ""}
-                  fill={colors[i % 4]}
+                  // fill={colors[i % 4]}
+                  fill="#25B487"
                   stroke={background}
                   strokeWidth={0.5}
                 />
@@ -114,7 +117,8 @@ export default function GeoAlbersUsa({
                 <path
                   key={`map-feature-${i}`}
                   d={path || ""}
-                  fill={colors[i % 4]}
+                  // fill={colors[i % 4]}
+                  fill="#25B487"
                   stroke={background}
                   strokeWidth={0.5}
                 />
